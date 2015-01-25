@@ -6,7 +6,7 @@
 
     $str = " src='backup.json'>";
 
-    $url = "https://raw.githubusercontent.com/djgago/web.radiohy/master/stations.html";
+    $url = "https://gist.githubusercontent.com/djgago/2e2fe5ed5767a21cc269/raw/6b2e2e01f09aab52a3a9a72a8e27ccb0493818a4/stations.html";
 
     $html = file_get_contents($url);
 
