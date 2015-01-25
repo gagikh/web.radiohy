@@ -1,25 +1,23 @@
 <?php 
 
-    $repo = "https://raw.githubusercontent.com/djgago/xbmc.plugin.audio.radiohy/master/resources/lib/backup.json";
-
-    $stations = file_get_contents($repo);
-    file_put_contents("backup.json", $stations);
+    function copy_from_git($repo, $file_name) {
+        $url = $repo . $file_name;
+        $str = file_get_contents($url);
+        file_put_contents($file_name, $str);
+    }
 
     $repo = "https://raw.githubusercontent.com/djgago/web.radiohy/master/";
-    $js_file_name   = "stations.js";
-    $css_file_name  = "stations.css";
-    $html_file_name = "stations.html";
+    $array = array("stations.js", "stations.css", "stations.html", "forum.html", "about.html");
+    $count = count($array);
+    for ($i = 0; $i < $count; $i++) {
+        copy_from_git($repo, $array[$i]);
+    }
 
-    $url = $repo . $js_file_name;
-    $js = file_get_contents($url);
-    file_put_contents($js_file_name, $js);
+    # read others
+    $backup = "backup.json";
+    $repo = "https://raw.githubusercontent.com/djgago/xbmc.plugin.audio.radiohy/master/resources/lib/";
+    copy_from_git($repo, $backup);
 
-    $url = $repo . $css_file_name;
-    $css = file_get_contents($url);
-    file_put_contents($css_file_name, $css);
-
-    $url = $repo . $html_file_name;
-    $html = file_get_contents($url);
-
-    echo $html
+    header('Location: stations.html');
+    exit;
 ?>
