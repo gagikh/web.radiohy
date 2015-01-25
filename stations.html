@@ -10,71 +10,10 @@
 <script type='text/javascript' src='backup.json'>
 </script>
 
-<script type='text/javascript' src='http://code.jquery.com/jquery-1.8.3.js'>
+<script type='text/javascript' src='http://code.jquery.com/jquery-1.8.3.js'/>
 </script>
 
-<style type="text/css">
-html, body {
-    margin:0;
-    padding:0;
-    font-family:Tahoma,Arial,Helvetica,Sans-Serif;
-}
-
-.station_text {
-    color: red;
-    padding-top: 15px;
-    text-align: center; 
-    font: bold;
-}
-
-.main_block {
-    width: 790px;
-    position: absolute;
-    left: 20%;
-}
-
-.radio_block {
-    width: 780px;
-    float: left;
-}
-
-.radio_block:nth-child(odd)     { background:#e7e7e7; }
-.radio_block:nth-child(even)    { background:#f7f7f7; }
-
-.radio_block:hover { -moz-box-shadow: 0 0 10px #ccc; -webkit-box-shadow: 0 0 10px #ccc; box-shadow: 0 0 10px #ccc; }
-
-.mix_logo {}
-
-.mix_logo_wrapper {
-    height: 48px;
-    width: 176px;
-    float: left;
-}
-
-.radio_button { float:right; }
-
-.stop {
-    height: 21px;
-    width: 23px;
-    background: url(http://live.mix.am/img/on_off.png) no-repeat -21px 0px;
-    margin-top: 13px;
-    margin-right: 15px;
-    cursor: pointer;
-}
-
-.playing {background-position: 0px 0px;}
-
-.player {
-    display:none;
-    visibility: hidden;
-    height: 0;
-    position: absolute;
-    overflow: hidden;
-}
-
-.active_icon {background-position: -21px 0px;}
-
-</style>
+<link rel="stylesheet" type="text/css" href="stations.css" media="screen"/>
 
 <script type='text/javascript'>
 
@@ -104,7 +43,7 @@ $(document).ready(function()
 
             mpl.setAttribute('flashvars', str);
             
-            var logo = clone.getElementsByClassName("mix_logo")[0];
+            var logo = clone.getElementsByClassName("radio_logo")[0];
             var logo_url = e.icon;
 
             logo.style.cssText = 'background: url("' + logo_url + '")' +
@@ -134,13 +73,8 @@ $(window).load( function() {
             e.preventDefault();
         });
 
-        $('.mix_icons a').on('click', function(e){
-            var target = $(this).attr('rel');
-            var icon = $(this).find('div');
-            icon.toggleClass( "active_icon" );
-            $("#"+target).slideToggle();
-        });
 });
+
 </script>
 </head>
 
@@ -152,8 +86,8 @@ $(window).load( function() {
                 <embed type="application/x-shockwave-flash" src="http://streammonster.com/sm/pl5/player.swf" id="mpl" name="mpl" quality="high" allowscriptaccess="always">
                 </div>
             </div>
-            <div class="mix_logo_wrapper">
-                <div class="mix_logo"></div>
+            <div class="radio_logo_wrapper">
+                <div class="radio_logo"></div>
             </div>
             <div class="station_text">
             </div>

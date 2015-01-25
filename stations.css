@@ -1,0 +1,61 @@
+
+html, body {
+    margin:0;
+    padding:0;
+    font-family:Tahoma,Arial,Helvetica,Sans-Serif;
+}
+
+.station_text {
+    color: red;
+    padding-top: 15px;
+    text-align: center; 
+    font: bold;
+}
+
+.main_block {
+    width: 790px;
+    position: absolute;
+    left: 20%;
+}
+
+.radio_block {
+    width: 780px;
+    float: left;
+}
+
+.radio_block:nth-child(odd)     { background:#e7e7e7; }
+.radio_block:nth-child(even)    { background:#f7f7f7; }
+
+.radio_block:hover { -moz-box-shadow: 0 0 10px #ccc; -webkit-box-shadow: 0 0 10px #ccc; box-shadow: 0 0 10px #ccc; }
+
+.radio_logo {}
+
+.radio_logo_wrapper {
+    height: 48px;
+    width: 176px;
+    float: left;
+}
+
+.radio_button { float:right; }
+
+.stop {
+    height: 21px;
+    width: 23px;
+    background: url(http://live.mix.am/img/on_off.png) no-repeat -21px 0px;
+    margin-top: 13px;
+    margin-right: 15px;
+    cursor: pointer;
+}
+
+.playing {background-position: 0px 0px;}
+
+.player {
+    display:none;
+    visibility: hidden;
+    height: 0;
+    position: absolute;
+    overflow: hidden;
+}
+
+.active_icon {background-position: -21px 0px;}
+
