@@ -1,17 +1,20 @@
 <?php 
 
-    $url = "https://raw.githubusercontent.com/djgago/xbmc.plugin.audio.radiohy/master/resources/lib/backup.json";
+    $repo = "https://raw.githubusercontent.com/djgago/xbmc.plugin.audio.radiohy/master/resources/lib/backup.json";
 
-    $stations = file_get_contents($url);
+    $stations = file_get_contents($repo);
+    file_put_contents("backup.json", $stations);
 
-    $str = " src='backup.json'>";
+    $repo = "https://raw.githubusercontent.com/djgago/web.radiohy/master/";
+    $css_file_name  = "stations.css";
+    $html_file_name = "stations.html";
 
-    $url = "https://gist.githubusercontent.com/djgago/2e2fe5ed5767a21cc269/raw/6b2e2e01f09aab52a3a9a72a8e27ccb0493818a4/stations.html";
+    $url = $repo . $css_file_name;
+    $css = file_get_contents($url);
+    file_put_contents($css_file_name, $css);
 
+    $url = $repo . $html_file_name;
     $html = file_get_contents($url);
 
-    $code = ">" . $stations . ";";
-    $html = str_replace($str, $code, $html);
-    
     echo $html
 ?>
