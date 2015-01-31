@@ -1,14 +1,21 @@
 html, body {
     margin:0;
     padding:0;
-    font-family:Tahoma,Arial,Helvetica,Sans-Serif;
+
+    font-weight: bold;
+    font-size: medium;
+    
+}
+
+a:link {
+    text-decoration: none;
+    color: #004415;
 }
 
 .station_text {
-    color: red;
     padding-top: 15px;
     text-align: center; 
-    font: bold;
+    color: rgb(0,0,255);
 }
 
 .main_block {
@@ -83,17 +90,12 @@ div#hmenu ul a:link{
     margin: 0;
     padding: .3em .4em .3em .4em;
     text-decoration: none;
-    font-weight: bold;
-    font-size: medium;
-    color: #004415;
 }
 
 div#hmenu ul a:visited{
     margin: 0;
     padding: .3em .4em .3em .4em;
     text-decoration: none;
-    font-weight: bold;
-    font-size: medium;
     color: #227755;
 }
 
@@ -101,8 +103,6 @@ div#hmenu ul a:active{
     margin: 0;
     padding: .3em .4em .3em .4em;
     text-decoration: none;
-    font-weight: bold;
-    font-size: medium;
     color: #227755;
 }
 
@@ -110,8 +110,6 @@ div#hmenu ul a:hover{
     margin: 0;
     padding: .3em .4em .3em .4em;
     text-decoration: none;
-    font-weight: bold;
-    font-size: medium;
     color: #f6f0cc;
     background-color: #a7a7a7;
 }
