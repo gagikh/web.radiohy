@@ -26,7 +26,16 @@ a:link {
 
 .radio_block {
     width: 780px;
-    float: left;
+    height: 48px;
+    -webkit-transition: all 0.5s;
+    transition: all 0.5s;
+    position: relative;
+}
+
+.radio_block:hover {
+    width:  830px;
+    height: 58px;
+    transform: translate(-25px,0);
 }
 
 .radio_block:nth-child(odd)     { background:#e7e7e7; }
@@ -37,7 +46,6 @@ a:link {
 .radio_logo {}
 
 .radio_logo_wrapper {
-    height: 48px;
     width: 176px;
     float: left;
 }
