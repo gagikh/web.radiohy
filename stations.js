@@ -28,8 +28,8 @@ $(document).ready(function()
             var logo_url = e.icon;
 
             logo.style.cssText = 'background: url("' + logo_url + '")' +
-                " no-repeat center center rgba(0, 0, 0, 0);border:1px solid;" +
-                " background-size:contain;float:left;height:95%;width:95%;";
+                " no-repeat center;" +
+                " background-size:contain;float:left;height:100%;width:100%;";
             
             var txt = clone.getElementsByClassName("station_text")[0];
             txt.innerHTML = '<a href="' + e.webpage + '">' + e.nickname + '</a>'
@@ -53,5 +53,4 @@ $(window).load( function() {
             }
             e.preventDefault();
         });
-
 });
