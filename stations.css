@@ -4,12 +4,10 @@ html, body {
 
     font-weight: bold;
     font-size: medium;
-    
 }
 
 a:link {
     text-decoration: none;
-    color: #004415;
 }
 
 .station_text {
@@ -19,29 +17,47 @@ a:link {
 }
 
 .main_block {
-    width: 780px;
-    position: absolute;
+    width: 850px;
+    overflow: auto;
     left: 20%;
+    position: relative;
 }
 
 .radio_block {
     width: 780px;
     height: 48px;
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
     -webkit-transition: all 0.5s;
     transition: all 0.5s;
-    position: relative;
+}
+
+#hmenu {
+    -webkit-transition: all 0.5s;
+    transition: all 0.5s;
 }
 
 .radio_block:hover {
     width:  830px;
     height: 58px;
-    transform: translate(-25px,0);
+    -moz-box-shadow: 0 0 10px #ccc;
+    -webkit-box-shadow: 0 0 10px #ccc; 
+    box-shadow: 0 0 10px #ccc;
+    border-radius:5px;
+}
+
+#hmenu:hover {
+    width:  830px;
+    height: 28px;
+    -moz-box-shadow: 0 0 10px #ccc;
+    -webkit-box-shadow: 0 0 10px #ccc; 
+    box-shadow: 0 0 10px #ccc;
+    border-radius:5px;
 }
 
 .radio_block:nth-child(odd)     { background:#e7e7e7; }
 .radio_block:nth-child(even)    { background:#f7f7f7; }
-
-.radio_block:hover { -moz-box-shadow: 0 0 10px #ccc; -webkit-box-shadow: 0 0 10px #ccc; box-shadow: 0 0 10px #ccc; }
 
 .radio_logo {}
 
@@ -74,12 +90,14 @@ a:link {
 .active_icon {background-position: -21px 0px;}
 
 div#hmenu {
-    margin: 0;
     padding: .3em 0 .3em 0;
     background: #e7e7e7;
-    width: 100%;
     text-align: center;
-    margin-bottom: 10px;
+    width: 780px;
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 2px;
 }
 
 div#hmenu ul {
@@ -94,30 +112,20 @@ div#hmenu ul li {
     display: inline;
 }
 
-div#hmenu ul a:link{
-    margin: 0;
-    padding: .3em .4em .3em .4em;
-    text-decoration: none;
-}
-
-div#hmenu ul a:visited{
+a:visited {
     margin: 0;
     padding: .3em .4em .3em .4em;
     text-decoration: none;
     color: #227755;
 }
 
-div#hmenu ul a:active{
+a:active {
     margin: 0;
     padding: .3em .4em .3em .4em;
     text-decoration: none;
     color: #227755;
 }
 
-div#hmenu ul a:hover{
-    margin: 0;
-    padding: .3em .4em .3em .4em;
-    text-decoration: none;
-    color: #f6f0cc;
-    background-color: #a7a7a7;
+a:hover {
+    color: #676767;
 }
