@@ -9,21 +9,32 @@ $(document).ready(function() {
     var div = dvx.cloneNode(true);
     rds.removeChild(dvx);
 
+    String.prototype.endsWith = function (s) {
+          return this.length >= s.length && this.substr(this.length - s.length) == s;
+    }
+
     for (var i = 0; i < n; i++) {
         var e = lst[i];
         var clone = div.cloneNode(true);
         var mpl = clone.getElementsByTagName("embed")[0];
 
-        var url = e.protocol + '://' + e.hostname + ':' + 
-            e.port + '/' + e.path;
-        
-        var str = "&autostart=1&duration=-1&viral.onpause=false&" +
-            "viral.oncomplete=false&viral.allowmenu=false&" +
-            "skin=http://streammonster.com/sm/pl5/stormtrooper.zip&file=" +
-            url + ";stream.mp3&type=sound&buffer='Buffering:%10%'";
+        var url;
+        if (e.port) {
+            var url = e.protocol + '://' + e.hostname + ':' + e.port + '/' + e.path;
+        } else {
+            var url = e.protocol + '://' + e.hostname + '/' + e.path;
+        }
+        if (url.endsWith('.swf')) {
+            mpl.setAttribute('src', url);
+        } else {
+            var str = "&autostart=1&duration=-1&viral.onpause=false&" +
+                "viral.oncomplete=false&viral.allowmenu=false&" +
+                "skin=http://streammonster.com/sm/pl5/stormtrooper.zip&file=" +
+                url + ";stream.mp3&type=sound&buffer='Buffering:%10%'";
 
-        mpl.setAttribute('flashvars', str);
-        
+            mpl.setAttribute('flashvars', str);
+        }
+            
         var logo = clone.getElementsByClassName("radio_logo")[0];
         var logo_url = e.icon;
 
