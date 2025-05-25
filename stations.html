@@ -11,8 +11,7 @@
 <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/djgago/xbmc.plugin.audio.radiohy/master/icon.png">
 <link rel='stylesheet' type='text/css' href='stations.css' media='screen'/>
 
-<script type='text/javascript' src='http://code.jquery.com/jquery-1.8.3.js'></script>
-<script type='text/javascript' src='backup.json'></script>
+<script src="https://code.jquery.com/jquery-3.7.1.slim.min.js" integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8=" crossorigin="anonymous"></script>
 <script type='text/javascript' src='stations.js'></script>
 </head>
 
@@ -30,7 +29,7 @@
     <div class="radio_block" id='source_div' style="visibility: hidden">
         <div class="radio_button stop">
             <div class="player">
-                <embed type="application/x-shockwave-flash" src="http://streammonster.com/sm/pl5/player.swf" id="mpl" name="mpl" quality="high" allowscriptaccess="always">
+                <audio id="html5_audio_player" controls src=""></audio>
                 </div>
             </div>
             <div class="radio_logo_wrapper">
