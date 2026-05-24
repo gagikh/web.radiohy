@@ -307,6 +307,44 @@ main {
   color: #fff;
 }
 
+.np-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex-shrink: 0;
+}
+
+.np-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+  font-size: 0.8rem;
+  line-height: 1;
+  cursor: pointer;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s, transform 0.15s;
+}
+
+.np-btn:hover:not(:disabled) {
+  background: var(--accent);
+  transform: scale(1.06);
+}
+
+.np-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+#np-stop {
+  font-size: 0.65rem;
+}
+
 .np-volume {
   display: flex;
   align-items: center;
@@ -407,6 +445,15 @@ p.error { color: #e74c3c; }
   .np-info {
     flex: 1 1 0;
     min-width: 0;
+  }
+
+  .np-controls {
+    flex: 0 0 auto;
+  }
+
+  .np-btn {
+    width: 34px;
+    height: 34px;
   }
 
   #np-name {
