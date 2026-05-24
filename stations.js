@@ -6,6 +6,8 @@ const npBar        = document.getElementById('now-playing');
 const npName       = document.getElementById('np-name');
 const npPause      = document.getElementById('np-pause');
 const npStop       = document.getElementById('np-stop');
+const npPauseIcon  = npPause?.querySelector('.np-icon-pause');
+const npPlayIcon   = npPause?.querySelector('.np-icon-play');
 const volumeSlider = document.getElementById('volume');
 const searchInput  = document.getElementById('search');
 const countrySelect = document.getElementById('country-filter');
@@ -33,21 +35,20 @@ function setPlayButtonIcon(btn, state) {
 }
 
 function updateNpControls() {
+  if (!npPause) return;
   const loading = activeCard && activeCard.classList.contains('loading');
   if (loading) {
     npPause.disabled = true;
-    npPause.innerHTML = ICON_PAUSE;
+    if (npPauseIcon) npPauseIcon.hidden = false;
+    if (npPlayIcon) npPlayIcon.hidden = true;
     npPause.setAttribute('aria-label', 'Pause');
     return;
   }
   npPause.disabled = false;
-  if (audio.paused) {
-    npPause.innerHTML = ICON_PLAY;
-    npPause.setAttribute('aria-label', 'Resume');
-  } else {
-    npPause.innerHTML = ICON_PAUSE;
-    npPause.setAttribute('aria-label', 'Pause');
-  }
+  const paused = audio.paused;
+  if (npPauseIcon) npPauseIcon.hidden = paused;
+  if (npPlayIcon) npPlayIcon.hidden = !paused;
+  npPause.setAttribute('aria-label', paused ? 'Resume' : 'Pause');
 }
 
 function buildUrl(s) {
@@ -249,16 +250,20 @@ volumeSlider.addEventListener('input', () => {
   audio.volume = parseFloat(volumeSlider.value);
 });
 
-npPause.addEventListener('click', () => {
-  if (!activeCard) return;
-  if (audio.paused) {
-    resumePlayback(activeCard, activeCard.querySelector('.play-btn'));
-  } else {
-    pausePlayback();
-  }
-});
+if (npPause) {
+  npPause.addEventListener('click', () => {
+    if (!activeCard) return;
+    if (audio.paused) {
+      resumePlayback(activeCard, activeCard.querySelector('.play-btn'));
+    } else {
+      pausePlayback();
+    }
+  });
+}
 
-npStop.addEventListener('click', stopPlayback);
+if (npStop) {
+  npStop.addEventListener('click', stopPlayback);
+}
 
 function applyFilters() {
   const query   = searchInput.value.trim().toLowerCase();
