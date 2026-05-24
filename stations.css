@@ -353,12 +353,90 @@ p.error { color: #e74c3c; }
 
 /* ── Mobile ─────────────────────────────────────────────── */
 
-@media (max-width: 540px) {
+@media (max-width: 640px) {
   main { grid-template-columns: 1fr; padding: 0 0.75rem; }
   .station-logo { width: 46px; height: 46px; }
   .play-btn { width: 34px; height: 34px; }
-  #volume { width: 70px; }
-  header { gap: 0.5rem; }
-  .header-controls { width: 100%; order: 3; }
-  nav { order: 2; margin-left: auto; }
+
+  header {
+    padding: 0.5rem 0.75rem;
+    gap: 0.5rem;
+    align-items: center;
+  }
+
+  .site-title {
+    font-size: 0.95rem;
+    flex: 1 1 auto;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  nav {
+    order: 2;
+    margin-left: auto;
+    flex-shrink: 0;
+  }
+
+  .header-controls {
+    order: 3;
+    flex: 1 1 100%;
+    width: 100%;
+    min-width: 0;
+  }
+
+  #search {
+    flex: 1 1 0;
+    min-width: 0;
+  }
+
+  #country-filter {
+    flex: 0 1 auto;
+    max-width: 11rem;
+    min-width: 0;
+  }
+
+  #now-playing {
+    height: auto;
+    min-height: 64px;
+    padding: 0.5rem 0.75rem;
+    gap: 0.5rem 0.75rem;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .np-info {
+    flex: 1 1 8rem;
+    min-width: 0;
+  }
+
+  #np-name {
+    font-size: 0.95rem;
+  }
+
+  .np-volume {
+    flex: 0 0 auto;
+    margin-left: auto;
+  }
+
+  #volume {
+    width: min(6.5rem, 28vw);
+    min-width: 4.5rem;
+  }
+
+  body.has-player {
+    padding-bottom: 5.5rem;
+  }
+}
+
+@media (max-width: 380px) {
+  .header-controls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  #country-filter {
+    max-width: none;
+    width: 100%;
+  }
 }
