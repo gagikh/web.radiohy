@@ -7,10 +7,17 @@ const npName     = document.getElementById('np-name');
 const volumeSlider = document.getElementById('volume');
 const searchInput  = document.getElementById('search');
 const countrySelect = document.getElementById('country-filter');
-const list = document.getElementById('station-list');
+const list           = document.getElementById('station-list');
+const contactView    = document.getElementById('contact-view');
+const headerControls = document.querySelector('.header-controls');
+const navContact     = document.getElementById('nav-contact');
+const navHome        = document.getElementById('nav-home');
 
-let allStations = [];
-let activeCard  = null;
+let allStations    = [];
+let activeCard     = null;
+let connectTimeout = null;
+
+const CONNECT_TIMEOUT_MS = 12000;
 
 function buildUrl(s) {
   // hostname may embed a path (e.g. "host.com/proxy/path/"), so only append
@@ -58,7 +65,7 @@ function renderStations(data) {
 
     const nameLink = document.createElement('a');
     nameLink.className = 'station-name';
-    nameLink.href = s.webpage || '#';
+    nameLink.href = /^https?:\/\//i.test(s.webpage) ? s.webpage : '#';
     nameLink.target = '_blank';
     nameLink.rel = 'noopener noreferrer';
     nameLink.textContent = s.nickname;
@@ -77,7 +84,7 @@ function renderStations(data) {
     btn.className = 'play-btn';
     btn.setAttribute('aria-label', 'Play ' + s.nickname);
     btn.innerHTML = '&#9654;';
-    btn.addEventListener('click', () => togglePlay(card, btn, s));
+    btn.addEventListener('click', e => { e.stopPropagation(); togglePlay(card, btn, s); });
 
     card.appendChild(logoWrap);
     card.appendChild(info);
@@ -89,13 +96,21 @@ function renderStations(data) {
 
   list.appendChild(fragment);
 
-  // Re-highlight the active card if it's still in the filtered list
+  // Re-highlight the active card if it's still in the filtered list.
+  // Capture state before the old DOM node is orphaned.
   if (activeCard) {
-    const url = activeCard.dataset.url;
+    const prevUrl     = activeCard.dataset.url;
+    const wasLoading  = activeCard.classList.contains('loading');
     for (const card of list.children) {
-      if (card.dataset.url === url) {
+      if (card.dataset.url === prevUrl) {
         card.classList.add('playing');
-        card.querySelector('.play-btn').innerHTML = '&#9646;&#9646;';
+        if (wasLoading) {
+          card.classList.add('loading');
+          card.querySelector('.play-btn').innerHTML =
+            '<span class="dot">.</span><span class="dot">.</span><span class="dot">.</span>';
+        } else {
+          card.querySelector('.play-btn').innerHTML = '&#9646;&#9646;';
+        }
         activeCard = card;
         break;
       }
@@ -111,37 +126,64 @@ function togglePlay(card, btn, s) {
 
   // Stop previous
   if (activeCard) {
-    activeCard.classList.remove('playing');
+    clearTimeout(connectTimeout);
+    activeCard.classList.remove('playing', 'loading');
     activeCard.querySelector('.play-btn').innerHTML = '&#9654;';
   }
 
   activeCard = card;
   audio.src = buildUrl(s);
   audio.volume = parseFloat(volumeSlider.value);
-  audio.play().catch(() => {});
 
-  card.classList.add('playing');
-  btn.innerHTML = '&#9646;&#9646;';
+  card.classList.add('playing', 'loading');
+  btn.innerHTML = '<span class="dot">.</span><span class="dot">.</span><span class="dot">.</span>';
   btn.setAttribute('aria-label', 'Stop ' + s.nickname);
 
   npName.textContent = s.nickname;
   npBar.hidden = false;
   document.body.classList.add('has-player');
+
+  audio.play().catch(() => showStreamError(card, btn));
+
+  connectTimeout = setTimeout(() => {
+    if (activeCard === card) showStreamError(card, btn);
+  }, CONNECT_TIMEOUT_MS);
+}
+
+function showStreamError(card, btn) {
+  if (card.classList.contains('stream-error')) return;
+  clearTimeout(connectTimeout);
+  activeCard = null;        // clear first so the error event from src='' is ignored
+  audio.pause();
+  audio.src = '';
+  card.classList.remove('playing', 'loading');
+  card.classList.add('stream-error');
+  btn.innerHTML = '&#9654;';
+  npBar.hidden = true;
+  document.body.classList.remove('has-player');
+  setTimeout(() => card.classList.remove('stream-error'), 2500);
 }
 
 function stopPlayback() {
   if (!activeCard) return;
-  audio.pause();
-  audio.src = '';
-  activeCard.classList.remove('playing');
+  clearTimeout(connectTimeout);
+  activeCard.classList.remove('playing', 'loading');
   activeCard.querySelector('.play-btn').innerHTML = '&#9654;';
   activeCard = null;
+  audio.pause();
+  audio.src = '';
   npBar.hidden = true;
   document.body.classList.remove('has-player');
 }
 
+audio.addEventListener('playing', () => {
+  clearTimeout(connectTimeout);
+  if (activeCard) activeCard.classList.remove('loading');
+});
 audio.addEventListener('ended', stopPlayback);
-audio.addEventListener('error', stopPlayback);
+audio.addEventListener('error', () => {
+  if (activeCard) showStreamError(activeCard, activeCard.querySelector('.play-btn'));
+});
 
 volumeSlider.addEventListener('input', () => {
   audio.volume = parseFloat(volumeSlider.value);
@@ -164,6 +206,27 @@ function applyFilters() {
 
 searchInput.addEventListener('input', applyFilters);
 countrySelect.addEventListener('change', applyFilters);
+
+// ── Hash routing ─────────────────────────────────────────
+
+function route() {
+  const isContact = location.hash === '#contact';
+  list.hidden            = isContact;
+  contactView.hidden     = !isContact;
+  headerControls.hidden  = isContact;
+  navContact.classList.toggle('active', isContact);
+}
+
+navHome.addEventListener('click', e => {
+  if (location.hash) {
+    e.preventDefault();
+    history.pushState(null, '', location.pathname);
+    route();
+  }
+});
+
+window.addEventListener('hashchange', route);
+route();
 
 // Load data from GitHub
 fetch(DATA_URL)

@@ -1,16 +1,18 @@
-<!DOCTYPE html>
-<html lang="hy">
+﻿<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Armenian Radio | Live</title>
+  <title>Armenian Radio Stations | Live</title>
+  <meta name="description" content="Live Armenian radio stations — search, filter by country, and stream directly in your browser.">
+  <meta name="theme-color" content="#1a1a2e">
   <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/gagikh/xbmc.plugin.audio.radiohy/master/icon.png">
   <link rel="stylesheet" href="stations.css">
 </head>
 <body>
 
   <header>
-    <span class="site-title">Armenian Radio</span>
+    <a href="index.html" class="site-title" id="nav-home">Armenian Radio Stations</a>
     <div class="header-controls">
       <input type="search" id="search" placeholder="Search stations..." autocomplete="off">
       <select id="country-filter">
@@ -18,14 +20,23 @@
       </select>
     </div>
     <nav>
-      <a href="index.html">Live</a>
-      <a href="contact.html">Contact</a>
+      <a href="#contact" id="nav-contact">Contact</a>
     </nav>
   </header>
 
   <main id="station-list">
     <p class="loading">Loading stations...</p>
   </main>
+
+  <div id="contact-view" hidden>
+    <div class="page-content">
+      <p lang="hy">Հայերեն հեռարձակվող ռադիոկայաններ, հավաքել եմ այնքան, որքան կարողացել եմ&nbsp;😊</p>
+      <p lang="hy">Գրեք հեղինակին և տեղեկացրեք նոր կայանի մասին՝
+      <a href="https://github.com/gagikh/xbmc.plugin.audio.radiohy/issues" target="_blank" rel="noopener noreferrer">GitHub Issues</a>
+      կամ <a href="mailto:hakgagik@yahoo.com">hakgagik@yahoo.com</a>
+      </p>
+    </div>
+  </div>
 
   <div id="now-playing" hidden>
     <div class="np-info">
