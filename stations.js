@@ -1,5 +1,5 @@
 const DATA_URL =
-  'https://raw.githubusercontent.com/gagikh/xbmc.plugin.audio.radiohy/master/resources/lib/stations.json';
+  'https://raw.githubusercontent.com/gagikh/xbmc.plugin.audio.radiohy/refs/heads/master/resources/lib/stations.json';
 
 const audio      = document.getElementById('player');
 const npBar      = document.getElementById('now-playing');
