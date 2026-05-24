@@ -1,131 +1,292 @@
-html, body {
-    margin:0;
-    padding:0;
+*, *::before, *::after { box-sizing: border-box; }
 
-    font-weight: bold;
-    font-size: medium;
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: #f0f2f5;
+  color: #222;
+  padding-bottom: 0;
 }
 
-a:link {
-    text-decoration: none;
+body.has-player {
+  padding-bottom: 64px;
 }
 
-.station_text {
-    padding-top: 15px;
-    text-align: center; 
-    color: rgb(0,0,255);
+/* ── Header ─────────────────────────────────────────────── */
+
+header {
+  background: #1a1a2e;
+  color: #fff;
+  padding: 0.75rem 1rem;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
 }
 
-.main_block {
-    width: 850px;
-    overflow: auto;
-    left: 20%;
-    position: relative;
+.site-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  white-space: nowrap;
+  letter-spacing: 0.02em;
 }
 
-.radio_block {
-    width: 780px;
-    height: 48px;
-    position: relative;
-    margin-left: auto;
-    margin-right: auto;
-    -webkit-transition: all 0.5s;
-    transition: all 0.5s;
+.header-controls {
+  display: flex;
+  gap: 0.5rem;
+  flex: 1;
+  min-width: 0;
 }
 
-#hmenu {
-    -webkit-transition: all 0.5s;
-    transition: all 0.5s;
+#search {
+  flex: 1;
+  min-width: 0;
+  padding: 0.4rem 0.75rem;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  background: rgba(255,255,255,0.15);
+  color: #fff;
+  outline: none;
+  transition: background 0.2s;
 }
 
-.radio_block:hover {
-    width:  830px;
-    height: 58px;
-    -moz-box-shadow: 0 0 10px #ccc;
-    -webkit-box-shadow: 0 0 10px #ccc; 
-    box-shadow: 0 0 10px #ccc;
-    border-radius:5px;
+#search::placeholder { color: rgba(255,255,255,0.55); }
+#search:focus { background: rgba(255,255,255,0.25); }
+
+#country-filter {
+  padding: 0.4rem 0.5rem;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  background: rgba(255,255,255,0.15);
+  color: #fff;
+  cursor: pointer;
+  outline: none;
 }
 
-#hmenu:hover {
-    width:  830px;
-    height: 28px;
-    -moz-box-shadow: 0 0 10px #ccc;
-    -webkit-box-shadow: 0 0 10px #ccc; 
-    box-shadow: 0 0 10px #ccc;
-    border-radius:5px;
+#country-filter option { background: #1a1a2e; }
+
+nav {
+  display: flex;
+  gap: 0.25rem;
 }
 
-.radio_block:nth-child(odd)     { background:#e7e7e7; }
-.radio_block:nth-child(even)    { background:#f7f7f7; }
-
-.radio_logo {}
-
-.radio_logo_wrapper {
-    width: 176px;
-    float: left;
+nav a {
+  color: rgba(255,255,255,0.75);
+  text-decoration: none;
+  padding: 0.3rem 0.6rem;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  transition: color 0.2s, background 0.2s;
 }
 
-.radio_button { float:right; }
-
-.stop {
-    height: 21px;
-    width: 23px;
-    background: url(http://live.mix.am/img/on_off.png) no-repeat -21px 0px;
-    margin-top: 13px;
-    margin-right: 15px;
-    cursor: pointer;
+nav a:hover,
+nav a.active {
+  color: #fff;
+  background: rgba(255,255,255,0.12);
 }
 
-.playing {background-position: 0px 0px;}
+/* ── Station List ────────────────────────────────────────── */
 
-.player {
-    display:none;
-    visibility: hidden;
-    height: 0;
-    position: absolute;
-    overflow: hidden;
+main {
+  max-width: 860px;
+  margin: 1rem auto;
+  padding: 0 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
 }
 
-.active_icon {background-position: -21px 0px;}
-
-div#hmenu {
-    padding: .3em 0 .3em 0;
-    background: #e7e7e7;
-    text-align: center;
-    width: 780px;
-    position: relative;
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: 2px;
+.station-card {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: #fff;
+  border-radius: 10px;
+  padding: 0.65rem 0.75rem;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.07);
+  border-left: 4px solid transparent;
+  transition: box-shadow 0.2s, border-color 0.2s, transform 0.15s;
+  cursor: default;
 }
 
-div#hmenu ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
+.station-card:hover {
+  box-shadow: 0 3px 10px rgba(0,0,0,0.11);
+  transform: translateY(-1px);
 }
 
-div#hmenu ul li {
-    margin: 0;
-    padding: 0;
-    display: inline;
+.station-card.playing {
+  border-left-color: #e94560;
+  background: #fff6f8;
 }
 
-a:visited {
-    margin: 0;
-    padding: .3em .4em .3em .4em;
-    text-decoration: none;
-    color: #227755;
+/* ── Logo ───────────────────────────────────────────────── */
+
+.station-logo {
+  width: 52px;
+  height: 52px;
+  flex-shrink: 0;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #eee;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  color: #bbb;
 }
 
-a:active {
-    margin: 0;
-    padding: .3em .4em .3em .4em;
-    text-decoration: none;
-    color: #227755;
+.station-logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 
-a:hover {
-    color: #676767;
+/* ── Info ───────────────────────────────────────────────── */
+
+.station-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.station-name {
+  display: block;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #1a1a2e;
+  text-decoration: none;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: color 0.2s;
+}
+
+.station-name:hover { color: #e94560; }
+
+.station-country {
+  font-size: 0.75rem;
+  color: #999;
+  margin-top: 0.15rem;
+  display: block;
+}
+
+/* ── Play button ────────────────────────────────────────── */
+
+.play-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: none;
+  background: #1a1a2e;
+  color: #fff;
+  font-size: 0.95rem;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background 0.2s, transform 0.15s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+.play-btn:hover { background: #e94560; transform: scale(1.08); }
+.station-card.playing .play-btn { background: #e94560; }
+
+/* ── Now Playing bar ────────────────────────────────────── */
+
+#now-playing {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 64px;
+  background: #1a1a2e;
+  color: #fff;
+  padding: 0 1rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  z-index: 20;
+  box-shadow: 0 -2px 12px rgba(0,0,0,0.25);
+}
+
+#now-playing[hidden] { display: none; }
+
+.np-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.np-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #e94560;
+  font-weight: 600;
+}
+
+#np-name {
+  font-weight: 600;
+  font-size: 0.95rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.np-volume {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+
+#volume {
+  width: 90px;
+  accent-color: #e94560;
+  cursor: pointer;
+}
+
+/* ── States ─────────────────────────────────────────────── */
+
+.loading,
+.empty,
+.error {
+  text-align: center;
+  color: #999;
+  padding: 3rem 1rem;
+  font-size: 0.95rem;
+}
+
+.error { color: #c0392b; }
+
+/* ── Shared page layout (about/forum) ───────────────────── */
+
+.page-content {
+  max-width: 860px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+/* ── Mobile ─────────────────────────────────────────────── */
+
+@media (max-width: 520px) {
+  header { gap: 0.5rem; }
+  .site-title { font-size: 1rem; }
+  .header-controls { width: 100%; order: 3; }
+  nav { order: 2; margin-left: auto; }
+
+  .station-logo { width: 42px; height: 42px; }
+  .play-btn { width: 36px; height: 36px; font-size: 0.85rem; }
+
+  #volume { width: 70px; }
+  main { padding: 0 0.5rem; }
 }

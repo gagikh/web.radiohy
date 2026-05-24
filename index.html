@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="hy">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Armenian Radio | Live</title>
+  <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/gagikh/xbmc.plugin.audio.radiohy/master/icon.png">
+  <link rel="stylesheet" href="stations.css">
+</head>
+<body>
+
+  <header>
+    <span class="site-title">Armenian Radio</span>
+    <div class="header-controls">
+      <input type="search" id="search" placeholder="Search stations..." autocomplete="off">
+      <select id="country-filter">
+        <option value="">All countries</option>
+      </select>
+    </div>
+    <nav>
+      <a href="index.html">Live</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <main id="station-list">
+    <p class="loading">Loading stations...</p>
+  </main>
+
+  <div id="now-playing" hidden>
+    <div class="np-info">
+      <span class="np-label">Now playing</span>
+      <span id="np-name"></span>
+    </div>
+    <audio id="player" preload="none"></audio>
+    <div class="np-volume">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 7.97v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/>
+      </svg>
+      <input type="range" id="volume" min="0" max="1" step="0.05" value="1" aria-label="Volume">
+    </div>
+  </div>
+
+  <script src="stations.js"></script>
+</body>
+</html>
