@@ -7,12 +7,14 @@
   <meta name="description" content="Live Armenian radio stations — search, filter by country, and stream directly in your browser.">
   <meta name="theme-color" content="#1a1a2e">
   <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/gagikh/xbmc.plugin.audio.radiohy/master/icon.png">
-  <link rel="stylesheet" href="stations.css?v=4">
+  <link rel="stylesheet" href="stations.css?v=5">
 </head>
 <body>
 
   <header>
-    <a href="index.html" class="site-title" id="nav-home">Armenian Radio Stations</a>
+    <h1 class="site-title">
+      <a href="index.html" id="nav-home">Armenian Radio Stations</a>
+    </h1>
     <div class="header-controls">
       <input type="search" id="search" placeholder="Search stations..." autocomplete="off">
       <select id="country-filter">
@@ -24,19 +26,25 @@
     </nav>
   </header>
 
-  <main id="station-list">
-    <p class="loading">Loading stations...</p>
-  </main>
+  <main>
+    <section id="stations-view">
+      <h2 class="page-heading">Radio stations</h2>
+      <div id="station-list" role="list">
+        <p class="loading">Loading stations...</p>
+      </div>
+    </section>
 
-  <div id="contact-view" hidden>
-    <div class="page-content">
-      <p lang="hy">Հայերեն հեռարձակվող ռադիոկայաններ, հավաքել եմ այնքան, որքան կարողացել եմ&nbsp;😊</p>
-      <p lang="hy">Գրեք հեղինակին և տեղեկացրեք նոր կայանի մասին՝
-      <a href="https://github.com/gagikh/xbmc.plugin.audio.radiohy/issues" target="_blank" rel="noopener noreferrer">GitHub Issues</a>
-      կամ <a href="mailto:hakgagik@yahoo.com">hakgagik@yahoo.com</a>
-      </p>
-    </div>
-  </div>
+    <section id="contact-view" hidden>
+      <h2 class="page-heading">Contact</h2>
+      <div class="page-content">
+        <p lang="hy">Հայերեն հեռարձակվող ռադիոկայաններ, հավաքել եմ այնքան, որքան կարողացել եմ&nbsp;😊</p>
+        <p lang="hy">Գրեք հեղինակին և տեղեկացրեք նոր կայանի մասին՝
+        <a href="https://github.com/gagikh/xbmc.plugin.audio.radiohy/issues" target="_blank" rel="noopener noreferrer">GitHub Issues</a>
+        կամ <a href="mailto:hakgagik@yahoo.com">hakgagik@yahoo.com</a>
+        </p>
+      </div>
+    </section>
+  </main>
 
   <div id="now-playing" hidden>
     <div class="np-info">
@@ -67,6 +75,6 @@
     </div>
   </div>
 
-  <script src="stations.js?v=4"></script>
+  <script src="stations.js?v=5"></script>
 </body>
 </html>

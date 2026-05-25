@@ -11,6 +11,7 @@ const npPlayIcon   = npPause?.querySelector('.np-icon-play');
 const volumeSlider = document.getElementById('volume');
 const searchInput  = document.getElementById('search');
 const countrySelect = document.getElementById('country-filter');
+const stationsView   = document.getElementById('stations-view');
 const list           = document.getElementById('station-list');
 const contactView    = document.getElementById('contact-view');
 const headerControls = document.querySelector('.header-controls');
@@ -75,6 +76,7 @@ function renderStations(data) {
   data.forEach(s => {
     const card = document.createElement('div');
     card.className = 'station-card';
+    card.setAttribute('role', 'listitem');
     card.dataset.url = buildUrl(s);
 
     // Logo
@@ -95,14 +97,17 @@ function renderStations(data) {
     const info = document.createElement('div');
     info.className = 'station-info';
 
+    const nameHeading = document.createElement('h3');
+    nameHeading.className = 'station-name';
+
     const nameLink = document.createElement('a');
-    nameLink.className = 'station-name';
     nameLink.href = /^https?:\/\//i.test(s.webpage) ? s.webpage : '#';
     nameLink.target = '_blank';
     nameLink.rel = 'noopener noreferrer';
     nameLink.textContent = s.nickname;
     nameLink.addEventListener('click', e => e.stopPropagation());
-    info.appendChild(nameLink);
+    nameHeading.appendChild(nameLink);
+    info.appendChild(nameHeading);
 
     if (s.country) {
       const country = document.createElement('span');
@@ -287,7 +292,7 @@ countrySelect.addEventListener('change', applyFilters);
 
 function route() {
   const isContact = location.hash === '#contact';
-  list.hidden            = isContact;
+  stationsView.hidden    = isContact;
   contactView.hidden     = !isContact;
   headerControls.hidden  = isContact;
   navContact.classList.toggle('active', isContact);
